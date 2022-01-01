@@ -18,7 +18,7 @@
                     <button type="submit" class="btn btn-primary">Add</button>
                 </p>
                 @error('todo_text')
-                    <span>{{message}}</span>
+                    <span>{{$message}}</span>
                 @enderror
             </form>
         </div>
