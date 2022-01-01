@@ -15,7 +15,7 @@ class TodoController extends Controller
     function add(Request $request) {
         // dd($request->todo_text); // Debuck Input
         $request->validate([
-            'doto_text' => 'required|unique:todo_text|max:100'
+            'todo_text' => 'required|unique:todo_text|max:100'
         ]);
     }
 }
