@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>My To Do List</h1>
-    <form action="create_todo" action="#">
+    <form action="#" method="post">
         <p>
             <label for="new_todo">New To Do.: </label>
             <input type="text" name="new_todo" id="new_todo">
