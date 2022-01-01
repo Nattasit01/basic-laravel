@@ -21,4 +21,5 @@ Route::get('/', function () {
 //     return view('todo');
 // });
 
-Route::get('/todo', 'TodoController@index');
+// Route::get('/todo', 'TodoController@index'); //  Old Laravel Version
+Route::get('/todo', [TodoController::Class, 'index']);
