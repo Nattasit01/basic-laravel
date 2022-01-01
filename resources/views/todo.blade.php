@@ -8,6 +8,12 @@
 </head>
 <body>
     <h1>My To Do List</h1>
-    <p><label for="new_todo">New To Do.: </label><input type="text" name="new_todo" id="new_todo"></p>
+    <form action="create_todo" action="#">
+        <p>
+            <label for="new_todo">New To Do.: </label>
+            <input type="text" name="new_todo" id="new_todo">
+            <button type="submit">Add</button>
+        </p>
+    </form>
 </body>
 </html>
