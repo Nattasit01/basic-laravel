@@ -31,3 +31,7 @@ Route::post('/todo/store', [TodoController::class, 'store'])->name('storeTodo');
 Route::post('/todo/actionUpdate', [TodoController::class, 'actionUpdate'])->name('actionUpdate');
 
 Route::get('/student', [StudentController::class, 'index'])->name('student');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
