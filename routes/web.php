@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,5 @@ Route::get('/todo/update/{id}', [TodoController::class, 'updateView'])->name('up
 Route::get('/todo/delete/{id}', [TodoController::class, 'delete'])->name('deleteTodo');
 Route::post('/todo/store', [TodoController::class, 'store'])->name('storeTodo');
 Route::post('/todo/actionUpdate', [TodoController::class, 'actionUpdate'])->name('actionUpdate');
+
+Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
