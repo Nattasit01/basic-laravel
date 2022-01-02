@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
-use App\Models\Todo;
+// use App\Models\Todo;
 
 class TodoController extends Controller
 {
     function index() {
-        $todos = DB::table('todos')->get();
-        return view('todo.dashboard', ['todoList' => $todos]);
+        $todos = DB::table('todos')->where('delete_dtm', NULL)->get();
+        return view('todo.index', ['todoList' => $todos]);
     }
 
     function store(Request $request) {
@@ -25,21 +26,60 @@ class TodoController extends Controller
                 'todo_text.max' => 'ระบุข้อมูลได้ไม่เกิน 100 ตัวอักษร'
             ]
         );
-        // Insert Data To Do
-        $todo = new Todo();
-        $todo->todo_txt = $request->todo_text;
-        $todo->save();
-        return redirect()->back();
+
+        // Insert Statement
+        $insertArray = array('todo_txt' => $request->todo_text, 'created_dtm' => Carbon::now());
+        $res_insertTodo = DB::table('todos')->insert($insertArray);
+        if ($res_insertTodo !== FALSE) {
+            return redirect()->back();
+        }
+        else {
+            return redirect()->back()->with('status', 'บันทึกข้อมูลไม่สำเร็จ!');
+        }
     }
 
-    function update(Request $request) {
-        return view('todo.update', ['id' => $request->id, 'todo_text' => $request->todo_text]);
+    function updateView($id) {
+        $todo = DB::table('todos')->where('delete_dtm', NULL)->where('id', $id)->get()->first();
+        return view('todo.update', ['todo' => $todo]);
     }
 
-    function delete(Request $request) {
-        $request->validate(['id' => 'required'], ['id.required' => 'กรุณาระบุ Id']);
+    function actionUpdate(Request $request) {
+        $request->validate(
+            [
+                'id' => 'required',
+                'todo_text' => 'required|max:100'
+            ],
+            [
+                'id.required' => 'ไม่พบข้อมูล',
+                'todo_text.required' => 'กรุณาระบุข้อมูล',
+                'todo_text.max' => 'ระบุข้อมูลได้ไม่เกิน 100 ตัวอักษร'
+            ]
+        );
 
-        $todo = new Todo();
-        $todo->
+        // Update Statement
+        $updateArray= array('todo_txt' => $request->todo_text);
+        $res_updateTodo = DB::table('todos')->where('id', $request->id)->update($updateArray);
+        if ($res_updateTodo !== FALSE) {
+            return redirect()->route('todo');
+        }
+        else {
+            return redirect()->route('todo')->with('status', 'บันทึกข้อมูลไม่สำเร็จ!');
+        }
+    }
+
+    function delete($id) {
+        if (empty($id)) {
+            return redirect()->route('todo')->with('status', 'ดำเนินการไม่สำเร็จ.!');
+        }
+        else {
+            $deleteArray= array('delete_dtm' => Carbon::now());
+            $res_DeleteTodo = DB::table('todos')->where('id', $id)->update($deleteArray);
+            if ($res_DeleteTodo !== FALSE) {
+                return redirect()->route('todo');
+            }
+            else {
+                return redirect()->route('todo')->with('status', 'ดำเนินการไม่สำเร็จ.!');
+            }
+        }
     }
 }

@@ -17,9 +17,13 @@
                     <input type="text" name="todo_text" id="todo_text" autocomplete="off">
                     <button type="submit" class="btn btn-primary">Add</button>
                 </p>
-                @error('todo_text')
-                    <span style="color:red;">{{$message}}</span>
-                @enderror
+                @if(session()->has('status'))
+                    <span style="color:red;">{{session('status')}}</span>
+                @else
+                    @error('todo_text')
+                        <span style="color:red;">{{$message}}</span>
+                    @enderror
+                @endif
             </form>
         </div>
     </div>
@@ -32,7 +36,7 @@
         <div class="col-md-4">
             <ul>
                 @foreach ($todoList AS $todo)
-                    <li>{{$todo->id}} | {{$todo->todo_txt}} <a href="">Edit</a> <a href="">delete</a></li>
+                    <li>{{$todo->id}} | {{$todo->todo_txt}} <a href="{{route('updateView', ['id' => $todo->id])}}">Edit</a> <a href="{{route('deleteTodo', ['id' => $todo->id])}}">delete</a></li>
                 @endforeach
             </ul>
         </div>

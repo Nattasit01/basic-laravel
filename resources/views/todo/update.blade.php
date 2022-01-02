@@ -10,12 +10,12 @@
     <h1>แก้ไขสิ่งที่ต้องทำ</h1>
     <div class="row">
         <div class="col-md-4">
-            <form action="{{route('updateTodo')}}" method="post">
+            <form action="{{route('actionUpdate')}}" method="post">
                 @csrf
                 <p>
                     <label for="todo_text">To Do.: </label>
-                    <input type="hidden" name="id" value="{{$id}}" autocomplete="off" readonly>
-                    <input type="text" name="todo_text" value="{{$todo_text}}" autocomplete="off">
+                    <input type="hidden" name="id" value="{{$todo->id}}" autocomplete="off" readonly>
+                    <input type="text" name="todo_text" value="{{$todo->todo_txt}}" autocomplete="off">
                     <button type="submit" class="btn btn-primary">Edit</button>
                 </p>
                 @error('todo_text')
