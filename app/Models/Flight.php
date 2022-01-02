@@ -4,14 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Todo extends Model
+class Flight extends Model
 {
     use HasFactory;
-    use SoftDeletes;
-
-    protected $fillable = [
-        'todo_txt'
-    ];
 }
