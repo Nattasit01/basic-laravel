@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
+
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\StudentController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,5 +36,7 @@ Route::post('/todo/actionUpdate', [TodoController::class, 'actionUpdate'])->name
 Route::get('/student', [StudentController::class, 'index'])->name('student');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    // $users = User::all(); // Eloquent
+    $users = DB::table('users')->get(); // Query Builder
+    return view('dashboard', compact('users'));
 })->name('dashboard');
