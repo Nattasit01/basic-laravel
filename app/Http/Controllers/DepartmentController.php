@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Auth;
 class DepartmentController extends Controller
 {
     function index() {
-        return view('admin.department.index');
+        // $departments = Department::all();
+        $departments = Department::paginate(3);
+        return view('admin.department.index', compact('departments'));
     }
 
     function store(Request $request) {
@@ -27,5 +29,7 @@ class DepartmentController extends Controller
         $department->user_id = Auth::user()->id;
         $department->department_name = $request->department_name;
         $department->save();
+
+        return redirect()->back()->with('resMessage', 'บันทึกข้อมูลสำเร็จ');
     }
 }

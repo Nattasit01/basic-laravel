@@ -17,6 +17,30 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">ตารางข้อมูลแผนก</div>
+                        <div class="card-body">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>ชื่อแผนก</th>
+                                        <th>ผู้ดำเนินการ</th>
+                                        <th>เข้าสู่ระบบเมื่อ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @php($i=1)
+                                @foreach ($departments as $department)
+                                    <tr>
+                                        <td>{{$departments->firstItem()+$loop->index}}</td>
+                                        <td>{{$department->department_name}}</td>
+                                        <td>{{$department->user_id}}</td>
+                                        <td>{{$department->created_at->diffForHumans(0)}}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            {{$departments->links()}}
+                        </div>
                     </div>
                 </div>
                 <!-- /.col -->
@@ -24,6 +48,9 @@
                     <div class="card">
                         <div class="card-header">แบบฟอร์ม</div>
                         <div class="card-body">
+                            @if (session('resMessage'))
+                                <div class="alert alert-success">{{session('resMessage')}}</div>
+                            @endif
                             <form action="{{route('addDepartment')}}" method="post">
                                 @csrf
                                 <div class="form-group">
