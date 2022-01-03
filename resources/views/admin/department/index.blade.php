@@ -30,10 +30,10 @@
                                     <label for="department_name">ชื่อตำแหน่งงาน</label>
                                     <input type="text" class="form-control" name="department_name" id="department_name" autocomplete="off">
                                 </div>
+                                <button type="submit" class="btn btn-primary mt-1 float-end">บันทึก</button>
                                 @error('department_name')
-                                    <span class="text-danger">{{$message}}</span>
+                                    <p class="badge bg-danger text-wrap">{{$message}}</p>
                                 @enderror
-                                    <button type="submit" class="btn btn-primary mt-1">บันทึก</button>
                             </form>
                         </div>
                     </div>
