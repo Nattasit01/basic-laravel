@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\DepartmentController;
 use App\Models\User;
 
 /*
@@ -40,3 +41,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users = DB::table('users')->get(); // Query Builder
     return view('dashboard', compact('users'));
 })->name('dashboard');
+
+// Department
+Route::get('/department', [DepartmentController::class, 'index'])->name('department');
