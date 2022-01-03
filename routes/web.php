@@ -43,4 +43,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 // Department
-Route::get('/department', [DepartmentController::class, 'index'])->name('department');
+Route::get('/department/all', [DepartmentController::class, 'index'])->name('department');
