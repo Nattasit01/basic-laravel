@@ -1,12 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Department</title>
-</head>
-<body>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{-- {{ __('Dashboard') }} --}}
+            Hello, {{Auth::user()->name}}
+            <hr>
+        </h2>
+    </x-slot>
 
-</body>
-</html>
+    <div class="py-12">
+        <div class="container">
+            <div class="row">
+                <h3>Department</h3>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">ตารางข้อมูลแผนก</div>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">แบบฟอร์ม</div>
+                        <div class="card-body">
+                            <form action="{{route('addDepartment')}}" method="post">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="department_name">ชื่อตำแหน่งงาน</label>
+                                    <input type="text" class="form-control" name="department_name" id="department_name" autocomplete="off">
+                                </div>
+                                @error('department_name')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
+                                    <button type="submit" class="btn btn-primary mt-1">บันทึก</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+        {{-- <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <x-jet-welcome />
+            </div>
+        </div> --}}
+    </div>
+</x-app-layout>

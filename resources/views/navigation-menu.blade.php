@@ -16,6 +16,9 @@
                         {{-- {{ __('Dashboard') }} --}}
                         User Dashboard
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('department') }}" :active="request()->routeIs('department')">
+                        Department
+                    </x-jet-nav-link>
                 </div>
             </div>
 
